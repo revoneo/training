@@ -2,6 +2,7 @@ const Koa        = require("koa");
 const Router     = require("koa-router");
 const BodyParser = require("koa-bodyparser");
 const logger     = require("koa-logger");
+const cors = require('@koa/cors');
 const mongoose   = require("mongoose");
 
 const app = new Koa();
@@ -16,16 +17,19 @@ const User = require('./models/user')
 // middleware
 app.use(BodyParser());
 app.use(logger());
+app.use(cors());
+
+router.post("/user", async ctx => {
+  const body = ctx.request.body;
+  const user = new User(body);
+  await user.save();
+  ctx.body = user;
+});
 
 router.get("/user", async ctx => {
-  // const user = new User({
-  //   account: 'testAccount2',
-  //   password: 'testPassword2'
-  // });
-  // await user.save();
-  const account = ctx.request.query.account || "testAccount";
-  const newUser = await User.findOne({account: account});
-  ctx.body = newUser;
+  const account = ctx.request.query.account || "account1";
+  const user = await User.findOne({account: account});
+  ctx.body = user;
 });
 
 app

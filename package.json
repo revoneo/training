@@ -16,6 +16,7 @@
   "author": "S-kazuki <contact@revoneo.com>",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^2.2.2",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
