@@ -36,6 +36,24 @@ router.get("/user", async ctx => {
   ctx.body = user;
 });
 
+router.post("/user/authenticate", async ctx => {
+  let body = ctx.request.body;
+  let user = await User.findOne({account: body.account});
+  let status;
+  if (!user) {
+    status = "fail";
+  } else {
+    if (user.password === body.password) {
+      status = "success";
+    } else {
+      status = "fail";
+    }
+  }
+  ctx.body = {
+    status
+  };
+});
+
 app
   .use(router.routes())
   .use(router.allowedMethods());
