@@ -9,7 +9,7 @@ const app = new Koa();
 const router = new Router();
 
 // db
-mongoose.connect('mongodb://localhost/training');
+mongoose.connect('mongodb://mongo/training');
 
 // models
 const User = require('./models/user')
